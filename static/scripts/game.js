@@ -123,7 +123,7 @@ export const colors = {
 
 export function click(field = [[0]], x = 0, y = 0){
     let sqr = $(`[x='${x}'][y='${y}']`)
-    if(sqr.prop("clicked"))
+    if(sqr.prop("clicked") || sqr.prop("flagged"))
         return field
 
     sqr.prop('clicked', true)
@@ -132,16 +132,35 @@ export function click(field = [[0]], x = 0, y = 0){
     field[y][x] = sqd
     if(sqd === 10){
         sqr.text(0).css({color: colors[0]})
-        let [bombs, zeros, everything] = findNeighbours(field, x, y)
-        zeros.forEach(([zx, zy]) => {
-            click(field, zx, zy)
-        })
-        everything.forEach(([zx, zy]) => {
-            click(field, zx, zy)
-        })
+        field = openNeighbours(field, x, y)
 
         return field
     }
     sqr.text(sqd).css({color: colors[sqd]})
+    return field
+}
+
+export function flag(field = [[0]], sqr = $()){
+
+    if(sqr.prop("clicked"))
+        return
+
+    let flagged = sqr.prop("flagged")
+    sqr.prop("flagged", !flagged)
+
+    !flagged ? sqr.html("<i class='bx bxs-flag' style='color: red;'></i>") : sqr.html('.')
+}
+
+export function openNeighbours(field = [[0]], x = 0, y = 0){
+    let sqr = $(`[x='${x}'][y='${y}']`)
+
+    let [bombs, zeros, everything] = findNeighbours(field, x, y)
+    zeros.forEach(([zx, zy]) => {
+        field = click(field, zx, zy)
+    })
+    everything.forEach(([zx, zy]) => {
+        field = click(field, zx, zy)
+    })
+
     return field
 }
