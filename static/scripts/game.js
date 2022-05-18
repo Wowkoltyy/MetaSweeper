@@ -88,11 +88,11 @@ export function showField(field = [[]]){
     field.forEach((row, y) =>{
         $(".field").append(`<div class='row'></div>`)
         row.forEach((sqr, x) =>{
-            $(".row").last().append(`<div x='${x}' y='${y}' class="square">.</div>`)
-            if(x === 0 && y === 0)$(`[x='${x}'][y='${y}']`).css({borderTopLeftRadius: '11px'})
-            if(x === 0 && y === field.length - 1)$(`[x='${x}'][y='${y}']`).css({borderBottomLeftRadius: '11px'})
-            if(x === row.length - 1 && y === 0)$(`[x='${x}'][y='${y}']`).css({borderTopRightRadius: '11px'})
-            if(x === row.length - 1 && y === field.length - 1)$(`[x='${x}'][y='${y}']`).css({borderBottomRightRadius: '11px'})
+            $(".row").last().append($(`<div x='${x}' y='${y}' class="square">.</div>`).prop("clicked", false))
+            if(x === 0 && y === 0) return $(".row").last().children().last().css({borderTopLeftRadius: '11px'})
+            if(x === 0 && y === field.length - 1) return $(".row").last().children().last().css({borderBottomLeftRadius: '11px'})
+            if(x === row.length - 1 && y === 0) return $(".row").last().children().last().css({borderTopRightRadius: '11px'})
+            if(x === row.length - 1 && y === field.length - 1) return $(".row").last().children().last().css({borderBottomRightRadius: '11px'})
         })
     })
 }
@@ -110,7 +110,7 @@ export function fillNumbers(field = [[]]){
 }
 
 export const colors = {
-    0: "var(--sidebar-color)",
+    0: "lightgray",
     1: "blue",
     2: "green",
     3: "red",
@@ -123,19 +123,24 @@ export const colors = {
 
 export function click(field = [[0]], x = 0, y = 0){
     let sqr = $(`[x='${x}'][y='${y}']`)
+    if(sqr.prop("clicked"))
+        return field
+
+    sqr.prop('clicked', true)
+    
     let sqd = Math.abs(field[y][x])
     field[y][x] = sqd
     if(sqd === 10){
         sqr.text(0).css({color: colors[0]})
         let [bombs, zeros, everything] = findNeighbours(field, x, y)
         zeros.forEach(([zx, zy]) => {
-            console.log(zx, zy)
             click(field, zx, zy)
         })
         everything.forEach(([zx, zy]) => {
-            console.log(zx, zy)
             click(field, zx, zy)
         })
+
+        return field
     }
     sqr.text(sqd).css({color: colors[sqd]})
     return field

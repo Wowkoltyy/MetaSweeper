@@ -110,6 +110,7 @@
     modeSwitch = body.querySelector(".toggle-switch"),
     modeText = body.querySelector(".mode-text");
 
+    window.onload = () => (localStorage.sweeperTheme === "dark") ?  modeSwitch.click() : null
 
     toggle.addEventListener("click" , () =>{
         sidebar.classList.toggle("close");
@@ -123,8 +124,10 @@
         body.classList.toggle("dark");
         
         if(body.classList.contains("dark")){
+            localStorage.sweeperTheme = "dark"
             modeText.innerText = "Light mode";
         }else{
+            localStorage.sweeperTheme = "light"
             modeText.innerText = "Dark mode";
             
         }
