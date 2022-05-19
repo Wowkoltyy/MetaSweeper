@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 export const bombs = 25
 export function generateBombs(n = 0, field = [[0]], x = 0, y = 0){
+=======
+export const bombs = 15
+
+export function generateBombs(n = 0, field = [[]]){
+>>>>>>> d3a2ea9c36b71aa7a3448d14e00777155a925f16
     let res = field
     let values = []
     let [bombs, zeros, everything] = findNeighbours(field, x, y)
@@ -167,7 +173,11 @@ export function click(field = [[0]], x = 0, y = 0){
         return field
     }
     sqr.text(sqd).css({color: colors[sqd]})
+<<<<<<< HEAD
     if(checkWin(field))alert('win')
+=======
+    if(checkWin(field, bombs))alert('win')
+>>>>>>> d3a2ea9c36b71aa7a3448d14e00777155a925f16
     return field
 }
 
@@ -196,6 +206,7 @@ export function openNeighbours(field = [[0]], x = 0, y = 0){
     return field
 }
 
+<<<<<<< HEAD
 export function checkWin(field = [[0]]){
     for(let row of field)
         for(let sqr of row){
@@ -203,4 +214,10 @@ export function checkWin(field = [[0]]){
             if(sqr === 9) return false
         }    
     return true
+=======
+export function checkWin(field = [[0]], bombs = 0){
+    for(row of field)
+        for(sqr of row)
+            if(sqr )
+>>>>>>> d3a2ea9c36b71aa7a3448d14e00777155a925f16
 }
