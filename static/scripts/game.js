@@ -1,3 +1,5 @@
+export const bombs = 15
+
 export function generateBombs(n = 0, field = [[]]){
     let res = field
     let values = []
@@ -137,6 +139,7 @@ export function click(field = [[0]], x = 0, y = 0){
         return field
     }
     sqr.text(sqd).css({color: colors[sqd]})
+    if(checkWin(field, bombs))alert('win')
     return field
 }
 
@@ -163,4 +166,10 @@ export function openNeighbours(field = [[0]], x = 0, y = 0){
     })
 
     return field
+}
+
+export function checkWin(field = [[0]], bombs = 0){
+    for(row of field)
+        for(sqr of row)
+            if(sqr )
 }

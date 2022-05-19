@@ -1,5 +1,5 @@
-import { generateBombs, generateField, fillNumbers, showField, click, flag, openNeighbours } from "./game.js"
-let field = fillNumbers(generateBombs(10, generateField(11, 11)))
+import { generateBombs, generateField, fillNumbers, showField, click, flag, openNeighbours, bombs } from "./game.js"
+let field = fillNumbers(generateBombs(bombs, generateField(11, 11)))
 showField(field)
 
 $(".square").on("click", function (){
