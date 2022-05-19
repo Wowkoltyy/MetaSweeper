@@ -1,10 +1,11 @@
 /* Poppins Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    font-weight: normal;
 }
 
 /* All variables */
@@ -310,13 +311,17 @@ body.dark .container .text{
     color: var(--text-color);
 }
 
-.field {
+.widget {
     background: var(--sidebar-color);
+    border-radius: 11px;
+}
+
+.field {
     width: 55vh;
     height: 55vh;
-    border-radius: 11px;
     font-size: 3vh;
 }
+
 .square {
     width: 5vh;
     height: 5vh;
@@ -340,4 +345,26 @@ body.dark .container .text{
 .row {
     height: 5vh;
     width: 55vh;
+}
+
+.game-area .widget{
+    display: inline-block;
+}
+
+.stats {
+    position: absolute;
+    margin-left: 2vw;
+    text-align: left;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.stats .header {
+    font-weight: 500;
+    margin-bottom: 2vh;
+}
+
+.stats .stat {
+    font-size: 25px;
+    margin-top: -1vh;
 }
