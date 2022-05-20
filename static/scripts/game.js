@@ -1,5 +1,27 @@
+export const grid = $(".field")
+export const bombs = 5
+export let timer
+export let time = 0
+export function stopTimer(){
+    clearInterval(timer)
+}
+export function startTimer(){
+    timer = setInterval(() => {
+        time += 0.01
+        time = time.toFixed(2)
+        timerSpan.text(time + "s")
+        time = Number(time)
+        if(grid.prop("lost")){
+            clearInterval(timer)
+            status.html("Lost <i class='bx bx-x' ></i>").css({color: "red"})
+        }
+    }, 10)
+}
+export let timerSpan = $("#stat-time")
+export let started = $("#stat-started")
+export let bombsSpan = $("#stat-bombs")
+export let status = $("#stat-res")
 
-export const bombs = 25
 export function generateBombs(n = 0, field = [[0]], x = 0, y = 0){
     let res = field
     let values = []
@@ -140,7 +162,6 @@ export const colors = {
 
 export function click(field = [[0]], x = 0, y = 0){
     let sqr = $(`[x='${x}'][y='${y}']`)
-    let grid = sqr.parent().parent()
 
     if(sqr.prop("clicked") || (sqr.prop("flagged") && !grid.prop("lost")))
         return field
@@ -169,8 +190,11 @@ export function click(field = [[0]], x = 0, y = 0){
     }
     sqr.text(sqd).css({color: colors[sqd]})
 
-    if(checkWin(field))alert('win')
-    return field
+    if(checkWin(field)){
+        $("#stat-res").html("Win <i class='bx bx-check'></i>").css({color: "lime"})
+        stopTimer()
+    }
+   return field
 }
 
 export function flag(field = [[0]], sqr = $()){
@@ -180,7 +204,6 @@ export function flag(field = [[0]], sqr = $()){
 
     let flagged = !sqr.prop("flagged")
     sqr.prop("flagged", flagged)
-    let grid = sqr.parent().parent()
     if(!grid.prop("flags"))grid.prop("flags", 0)
     grid.prop("flags", grid.prop("flags") + (flagged ? 1 : -1))
 
