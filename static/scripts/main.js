@@ -21,6 +21,7 @@ $(".square").on("click", function (){
         startTimer()
     }
 
+    
     field = click(field, x, y)
     
 })
