@@ -1,5 +1,5 @@
 import { generateBombs, generateField, fillNumbers, showField, click, flag, openNeighbours, bombs } from "./game.js"
-<<<<<<< HEAD
+
 let field = generateField(11, 11)
 showField(field, false)
 let time = 0
@@ -9,10 +9,6 @@ let started = $("#stat-started")
 let bombsSpan = $("#stat-bombs")
 started.html("False <i class='bx bx-x' ></i>").css({color: "red"})
 timerSpan.text("0.00")
-=======
-let field = fillNumbers(generateBombs(bombs, generateField(11, 11)))
-showField(field)
->>>>>>> d3a2ea9c36b71aa7a3448d14e00777155a925f16
 
 $(".square").on("click", function (){
     let sqr = $(this)
